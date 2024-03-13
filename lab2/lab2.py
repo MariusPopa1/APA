@@ -1,6 +1,5 @@
 import time
 import matplotlib.pyplot as plt
-import numpy as np
 import random
 
 
@@ -19,40 +18,31 @@ def quicksort(arr):
 
 
 def mergesort(arr):
-    if len(arr) <= 1:
-        return arr
+    if len(arr) > 1:
 
-    mid = len(arr) // 2
-    left = arr[:mid]
-    right = arr[mid:]
+        mid = len(arr) // 2
+        L = arr[:mid]
+        R = arr[mid:]
+        mergesort(L)
+        mergesort(R)
+        i = j = k = 0
+        while i < len(L) and j < len(R):
+            if L[i] <= R[j]:
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+        while i < len(L):
+            arr[k] = L[i]
+            i += 1
+            k += 1
 
-    left_sorted = mergesort(left)
-    right_sorted = mergesort(right)
-
-    return merge(left_sorted, right_sorted)
-
-
-def merge(left, right):
-    result = []
-    left_index = right_index = 0
-
-    while left_index < len(left) and right_index < len(right):
-        if left[left_index] < right[right_index]:
-            result.append(left[left_index])
-            left_index += 1
-        else:
-            result.append(right[right_index])
-            right_index += 1
-
-    while left_index < len(left):
-        result.append(left[left_index])
-        left_index += 1
-
-    while right_index < len(right):
-        result.append(right[right_index])
-        right_index += 1
-
-    return result
+        while j < len(R):
+            arr[k] = R[j]
+            j += 1
+            k += 1
 
 
 def heapsort(arr):
@@ -81,10 +71,7 @@ def heapify(arr, n, i):
 
 def bubblesort(arr):
     n = len(arr)
-    # optimize code, so if the array is already sorted, it doesn't need
-    # to go through the entire process
     swapped = False
-    # Traverse through all array elements
     for i in range(n - 1):
 
         for j in range(0, n - i - 1):
@@ -94,8 +81,6 @@ def bubblesort(arr):
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
 
         if not swapped:
-            # if we haven't needed to make a single swap, we
-            # can just exit the main loop.
             return
 
 
@@ -106,20 +91,10 @@ def calculate_execution_time(sort_func, arr):
     return end_time - start_time, sorted_arr
 
 
-def plot_graph(execution_times, labels):
-    x = np.arange(len(execution_times))
-    plt.bar(x, execution_times, align='center', alpha=0.5)
-    plt.xticks(x, labels)
-    plt.ylabel('Execution Time (s)')
-    plt.title('Sorting Algorithm Execution Times')
-    plt.tight_layout()
-    plt.show()
-
-
-sizes = [1000, 2000, 3000, 4000, 5000]
+sizes = [x for x in range(1000, 5001, 1000)]
 sort_functions = [quicksort, mergesort, heapsort, bubblesort]
 
-sort_names = ['Quicksort', 'Merge Sort', 'Heap Sort', 'Bubble Sort']
+sort_names = ['Quicksort', 'Merge Sort', 'Heap Sort', 'Bubble sort']
 execution_time = {name: [] for name in sort_names}
 
 for s in sizes:
