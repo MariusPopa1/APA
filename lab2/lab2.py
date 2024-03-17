@@ -92,9 +92,10 @@ def calculate_execution_time(sort_func, arr):
 
 
 sizes = [x for x in range(1000, 5001, 1000)]
-sort_functions = [quicksort, mergesort, heapsort, bubblesort]
+sort_functions = [quicksort]
 
-sort_names = ['Quicksort', 'Merge Sort', 'Heap Sort', 'Bubble sort']
+sort_names = ['Quicksort']
+
 execution_time = {name: [] for name in sort_names}
 
 for s in sizes:
