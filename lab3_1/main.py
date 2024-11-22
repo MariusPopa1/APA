@@ -9,6 +9,7 @@ timeDFS = []
 timeBFS = []
 
 
+
 for i in values:
     g = erdos_renyi_graph(i, 0.95)
     graph = GraphDFS()
