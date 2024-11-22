@@ -38,6 +38,8 @@ class GraphBFS:
         max_node = max(self.adjList.keys(), default=-1)
         visited = [False] * (max_node + 1)
 
+
+
         visited[startNode] = True
         queue.append(startNode)
 
